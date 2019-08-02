@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello Vue</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        window.addEventListener('load', () => {
+            Vue.component('grocery-item', {
+                props: ['title'],
+                template: '<li>{{ title }}</li>'
+            });
+            
+            let app  = new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        message: 'Hello World',
+                        groceries: ['Bread', 'Milk']
+                    }
+                }
+            });
+
+            setTimeout(() => { app.groceries.push('Apples') }, 2000);
+        });
+    </script>
+</head>
+<body>
+    <div id="app">
+        <h1>{{ message }}</h1>
+        <h3>Grocery List</h3>
+        <ul>
+            <grocery-item v-for="grocery in groceries" :key="grocery" :title="grocery">{{ grocery }}</grocery-item>
+        </ul>
+    </div>
+</body>
+</html>
