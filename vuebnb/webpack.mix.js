@@ -19,8 +19,22 @@ mix.js('resources/assets/js/app.js', 'public/js')
     ], 'public/css/style.css')
     .copy('node_modules/open-sans-all/fonts', 'public/fonts')
     .copy('node_modules/font-awesome/fonts', 'public/fonts')
-    .copy('resources/assets/images', 'public/images')
-    .browserSync({
-        proxy: process.env.APP_URL,
-        open: false
-    });
+    .copy('resources/assets/images', 'public/images');
+    // .browserSync({
+    //     //proxy: process.env.APP_URL,
+    //     proxy: 'localhost:8000',
+    //     open: false
+    // });
+
+mix.options({
+    postCss: [require('autoprefixer')],
+    extractVueStyles: 'public/css/vue-style.css'
+});
+
+mix.webpackConfig({
+    resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.runtime.esm.js'
+        }
+    }
+});
