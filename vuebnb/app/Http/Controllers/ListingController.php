@@ -46,10 +46,12 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        $model = $listing->toArray();
-        for($i = 1; $i <=4; $i++) {
-            $model['image_' . $i] = asset('images/' . $listing->id . '/Image_' . $i . '.jpg');
-        }
+        $model = $this->add_image_urls($listing->toArray(), $listing->id);
+        return view('app', compact('model'));
+    }
+
+    public function show_api(Listing $listing) {
+        $model = $this->add_image_urls($listing->toArray(), $listing->id);
         return response()->json($model);
     }
 
@@ -85,5 +87,12 @@ class ListingController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    protected function add_image_urls(array $model, $id) {
+        for($i = 1; $i <=4; $i++) {
+            $model['image_' . $i] = asset('images/' . $id . '/Image_' . $i . '.jpg');
+        }
+        return $model;
     }
 }
