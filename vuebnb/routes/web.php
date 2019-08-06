@@ -13,4 +13,5 @@ use App\Listing;
 |
 */
 
+Route::get('/', 'ListingController@index');
 Route::get('/listing/{listing}', 'ListingController@show');

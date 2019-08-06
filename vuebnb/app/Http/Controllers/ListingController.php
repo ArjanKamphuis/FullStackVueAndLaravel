@@ -14,7 +14,15 @@ class ListingController extends Controller
      */
     public function index()
     {
-        //
+        $data = $this->get_listing_summaries();
+        $data = $this->add_meta_data($data);
+        return view('app', compact('data'));
+    }
+
+    public function index_api() {
+        $data = $this->get_listing_summaries();
+        $data = $this->add_meta_data($data);
+        return response()->json($data);
     }
 
     /**
@@ -46,13 +54,14 @@ class ListingController extends Controller
      */
     public function show(Listing $listing)
     {
-        $model = $this->add_image_urls($listing->toArray(), $listing->id);
-        return view('app', compact('model'));
+        $data = $this->get_listing($listing);
+        $data = $this->add_meta_data($data);
+        return view('app', compact('data'));
     }
 
     public function show_api(Listing $listing) {
-        $model = $this->add_image_urls($listing->toArray(), $listing->id);
-        return response()->json($model);
+        $data = $this->get_listing($listing);
+        return response()->json($data);
     }
 
     /**
@@ -89,10 +98,26 @@ class ListingController extends Controller
         //
     }
 
-    protected function add_image_urls(array $model, $id) {
+    protected function get_listing(Listing $listing) {
+        $model = $listing->toArray();
         for($i = 1; $i <=4; $i++) {
-            $model['image_' . $i] = asset('images/' . $id . '/Image_' . $i . '.jpg');
+            $model['image_' . $i] = asset('images/' . $listing->id . '/Image_' . $i . '.jpg');
         }
-        return $model;
+        return collect(['listing' => $model]);
+    }
+
+    protected function get_listing_summaries() {
+        $collection = Listing::all([
+            'id', 'address', 'title', 'price_per_night'
+        ]);
+        $collection->transform(function($listing) {
+            $listing->thumb = asset('images/' . $listing->id . '/Image_1_thumb.jpg');
+            return $listing;
+        });
+        return collect(['listings' => $collection->toArray()]);
+    }
+
+    protected function add_meta_data($collection) {
+        return $collection->merge(['path' => request()->getPathInfo()]);
     }
 }

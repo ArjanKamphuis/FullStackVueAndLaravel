@@ -43,23 +43,27 @@
 </script>
 
 <style>
-.image-carousel img {
-    width: 100%;
-}
+    .image-carousel img {
+        width: 100%;
+    }
 
-.image-carousel {
-    height: 100%;
-    margin-top: -12vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .image-carousel {
+        height: 100%;
+        margin-top: -12vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.image-carousel .controls {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
+    .image-carousel .controls {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .image-carousel .controls .carousel-control {
+        cursor: pointer;
+    }
 </style>

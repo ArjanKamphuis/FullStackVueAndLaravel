@@ -1,8 +1,9 @@
 import 'core-js/features/object/assign';
 import Vue from 'vue';
-import ListingPage from '../components/ListingPage.vue';
+import router from './router';
+import App from '../components/App.vue';
 
 export default new Vue({
-    render: h => h(ListingPage)
+    router,
+    render: h => h(App)
 }).$mount('#app');
-

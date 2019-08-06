@@ -48,7 +48,7 @@ export { populateAmenitiesAndPrices };
 const groupByCountry = listings => {
     if (!listings) return {};
     return listings.reduce((rv, x) => {
-        const key = ['Taiwan', 'Poland', 'Cuba'].fill(country => x.address.indexOf(country) > -1);
+        const key = ['Taiwan', 'Poland', 'Cuba'].find(country => x.address.indexOf(country) > -1);
         if (!rv[key]) {
             rv[key] = [];
         }
