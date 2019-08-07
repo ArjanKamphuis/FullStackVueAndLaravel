@@ -14,7 +14,7 @@
         props: ['id', 'button'],
         methods: {
             toggleSaved() {
-                this.$store.commit('TOGGLE_SAVED', this.id);
+                this.$store.dispatch('toggleSaved', this.id);
             }
         },
         computed: {

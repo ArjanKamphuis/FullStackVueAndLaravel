@@ -14,5 +14,7 @@ use App\Listing;
 */
 
 Route::get('/', 'ListingController@index');
-Route::get('/saved', 'ListingController@index');
+Route::get('/saved', 'ListingController@index')->middleware('auth');
 Route::get('/listing/{listing}', 'ListingController@show');
+
+Auth::routes();

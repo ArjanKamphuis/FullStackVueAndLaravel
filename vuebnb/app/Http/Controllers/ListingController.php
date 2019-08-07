@@ -61,6 +61,7 @@ class ListingController extends Controller
 
     public function show_api(Listing $listing) {
         $data = $this->get_listing($listing);
+        $data = $this->add_meta_data($data);
         return response()->json($data);
     }
 
@@ -118,6 +119,10 @@ class ListingController extends Controller
     }
 
     protected function add_meta_data($collection) {
-        return $collection->merge(['path' => request()->getPathInfo()]);
+        return $collection->merge([
+            'path' => request()->getPathInfo(),
+            'auth' => auth()->check(),
+            'saved' => auth()->check() ? auth()->user()->saved : []
+        ]);
     }
 }

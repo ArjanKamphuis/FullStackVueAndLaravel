@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/vue-style.css') }}">
     <script>
         window.vuebnb_server_data = '{!! addslashes(json_encode($data)) !!}';
+        window.csrf_token = '{{ csrf_token() }}';
     </script>
 </head>
 <body>
